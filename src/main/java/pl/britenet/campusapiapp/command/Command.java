@@ -1,5 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
+import java.util.Scanner;
+
 public abstract class Command {
 
     private String name;
@@ -12,5 +14,10 @@ public abstract class Command {
 
     public String getName() {
         return name;
+    }
+
+    public String messageWithScanner(String message, Scanner scanner) {
+        System.out.println(message);
+        return scanner.nextLine();
     }
 }

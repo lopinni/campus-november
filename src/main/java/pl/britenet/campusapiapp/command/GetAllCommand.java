@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class GetAllCommand extends Command {
 
-    private DatabaseService databaseService;
+    private final DatabaseService databaseService;
 
     public GetAllCommand(DatabaseService databaseService) {
         super(Constants.COMMAND_NAME_GETALL);
@@ -19,8 +19,7 @@ public class GetAllCommand extends Command {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Table name:");
-        String tableName = scanner.nextLine();
+        String tableName = this.messageWithScanner("Table name:", scanner);
         switch (tableName) {
             case Constants.TABLE_NAME_CATEGORY -> {
                 CategoryService categoryService = new CategoryService(databaseService);

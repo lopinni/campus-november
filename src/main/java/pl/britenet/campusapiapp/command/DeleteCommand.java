@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class DeleteCommand extends Command{
 
-    private DatabaseService databaseService;
+    private final DatabaseService databaseService;
 
     public DeleteCommand(DatabaseService databaseService) {
         super(Constants.COMMAND_NAME_DELETE);
@@ -18,64 +18,66 @@ public class DeleteCommand extends Command{
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Table name:");
-        String tableName = scanner.nextLine();
+        String tableName = this.messageWithScanner("Table name:", scanner);
         try {
             switch (tableName) {
                 case Constants.TABLE_NAME_CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
-                    System.out.println("Select record ID:");
-                    categoryService.deleteCategory(Integer.parseInt(scanner.nextLine()));
+                    categoryService.deleteCategory(Integer.parseInt(this.messageWithScanner(
+                            "Select record ID:", scanner
+                    )));
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
-                    System.out.println("Select record ID:");
-                    productService.deleteProduct(Integer.parseInt(scanner.nextLine()));
+                    productService.deleteProduct(Integer.parseInt(this.messageWithScanner(
+                            "Select record ID:", scanner
+                    )));
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     System.out.println("Select record IDs (product id, category id):");
                     productCategoryService.deleteProductCategory(
-                            Integer.parseInt(scanner.nextLine()),
-                            Integer.parseInt(scanner.nextLine())
+                            Integer.parseInt(this.messageWithScanner("Select product ID:", scanner)),
+                            Integer.parseInt(this.messageWithScanner("Select category ID:", scanner))
                     );
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_USER -> {
                     UserService userService = new UserService(databaseService);
-                    System.out.println("Select record ID:");
-                    userService.deleteUser(Integer.parseInt(scanner.nextLine()));
+                    userService.deleteUser(Integer.parseInt(this.messageWithScanner(
+                            "Select record ID:", scanner
+                    )));
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
-                    System.out.println("Select record ID:");
-                    orderService.deleteOrder(Integer.parseInt(scanner.nextLine()));
+                    orderService.deleteOrder(Integer.parseInt(this.messageWithScanner(
+                            "Select record ID:", scanner
+                    )));
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_ORDERPRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
-                    System.out.println("Select record IDs (order id, product id):");
                     orderProductService.deleteOrderProduct(
-                            Integer.parseInt(scanner.nextLine()),
-                            Integer.parseInt(scanner.nextLine())
+                            Integer.parseInt(this.messageWithScanner("Select order ID:", scanner)),
+                            Integer.parseInt(this.messageWithScanner("Select product ID:", scanner))
                     );
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_CART -> {
                     CartService cartService = new CartService(databaseService);
-                    System.out.println("Select record ID:");
-                    cartService.deleteCart(Integer.parseInt(scanner.nextLine()));
+                    cartService.deleteCart(Integer.parseInt(this.messageWithScanner(
+                            "Select record ID:", scanner
+                    )));
                     System.out.println("Row deleted.");
                 }
                 case Constants.TABLE_NAME_CARTPRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
-                    System.out.println("Select record IDs (cart id, product id):");
                     cartProductService.deleteCartProduct(
-                            Integer.parseInt(scanner.nextLine()),
-                            Integer.parseInt(scanner.nextLine())
+                            Integer.parseInt(this.messageWithScanner("Select cart ID:", scanner)),
+                            Integer.parseInt(this.messageWithScanner("Select product ID:", scanner))
                     );
                     System.out.println("Row deleted.");
                 }

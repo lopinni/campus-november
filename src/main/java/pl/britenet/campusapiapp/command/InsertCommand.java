@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class InsertCommand extends Command {
 
-    private DatabaseService databaseService;
+    private final DatabaseService databaseService;
 
     public InsertCommand(DatabaseService databaseService) {
         super(Constants.COMMAND_NAME_INSERT);
@@ -21,107 +21,136 @@ public class InsertCommand extends Command {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Table name:");
-        String tableName = scanner.nextLine();
+        String tableName = this.messageWithScanner("Table name:", scanner);
         try {
             switch (tableName) {
                 case Constants.TABLE_NAME_CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
                     CategoryBuilder categoryBuilder = new CategoryBuilder(new Category());
-                    System.out.println("Insert new values (name, image path):");
                     categoryBuilder
-                            .setName(scanner.nextLine())
-                            .setImagePath(scanner.nextLine());
+                            .setName(this.messageWithScanner("Insert new name:", scanner))
+                            .setImagePath(this.messageWithScanner("Insert new image path:", scanner));
                     categoryService.insertCategory(categoryBuilder.getCategory());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
                     ProductBuilder productBuilder = new ProductBuilder(new Product());
-                    System.out.println("Insert new values (name, price, description, image path):");
                     productBuilder
-                            .setName(scanner.nextLine())
-                            .setPrice(Double.parseDouble(scanner.nextLine()))
-                            .setDescription(scanner.nextLine())
-                            .setImagePath(scanner.nextLine());
+                            .setName(this.messageWithScanner("Insert new name:", scanner))
+                            .setPrice(Double.parseDouble(this.messageWithScanner("Insert new price:", scanner)))
+                            .setDescription(this.messageWithScanner("Insert new description:", scanner))
+                            .setImagePath(this.messageWithScanner("Insert new image path:", scanner));
                     productService.insertProduct(productBuilder.getProduct());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     ProductCategoryBuilder productCategoryBuilder = new ProductCategoryBuilder(new ProductCategory());
-                    System.out.println("Insert new values (product id, category id):");
                     productCategoryBuilder
-                            .setProductId(Integer.parseInt(scanner.nextLine()))
-                            .setCategoryId(Integer.parseInt(scanner.nextLine()));
+                            .setProductId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new product id:", scanner
+                            )))
+                            .setCategoryId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new category id:", scanner
+                            )));
                     productCategoryService.insertProductCategory(productCategoryBuilder.getProductCategory());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_USER -> {
                     UserService userService = new UserService(databaseService);
                     UserBuilder userBuilder = new UserBuilder(new User());
-                    System.out.println("Insert new values " +
-                            "(login, password, name, surname, city, street, country, zip code, profile picture path):");
                     userBuilder
-                            .setLogin(scanner.nextLine())
-                            .setPassword(scanner.nextLine())
-                            .setName(scanner.nextLine())
-                            .setSurname(scanner.nextLine())
-                            .setCity(scanner.nextLine())
-                            .setStreet(scanner.nextLine())
-                            .setCountry(scanner.nextLine())
-                            .setZipCode(scanner.nextLine())
-                            .setProfilePicturePath(scanner.nextLine());
+                            .setLogin(this.messageWithScanner("Insert new login:", scanner))
+                            .setPassword(this.messageWithScanner("Insert new password:", scanner))
+                            .setName(this.messageWithScanner("Insert new name:", scanner))
+                            .setSurname(this.messageWithScanner("Insert new surname:", scanner))
+                            .setCity(this.messageWithScanner("Insert new city:", scanner))
+                            .setStreet(this.messageWithScanner("Insert new street:", scanner))
+                            .setCountry(this.messageWithScanner("Insert new country:", scanner))
+                            .setZipCode(this.messageWithScanner("Insert new zip code:", scanner))
+                            .setProfilePicturePath(this.messageWithScanner(
+                                    "Insert new profile picture path:", scanner
+                            ));
                     userService.insertUser(userBuilder.getUser());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
                     OrderBuilder orderBuilder = new OrderBuilder(new Order());
-                    System.out.println("Insert new values " +
-                            "(user id, order date, total price, shipping address, discount):");
                     orderBuilder
-                            .setUserId(Integer.parseInt(scanner.nextLine()))
-                            .setOrderDate(Date.valueOf(scanner.nextLine()))
-                            .setTotalPrice(Double.parseDouble(scanner.nextLine()))
-                            .setShippingAddress(scanner.nextLine())
-                            .setDiscount(Double.parseDouble(scanner.nextLine()));
+                            .setUserId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new user id:", scanner
+                            )))
+                            .setOrderDate(Date.valueOf(this.messageWithScanner(
+                                    "Insert new order date:", scanner
+                            )))
+                            .setTotalPrice(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new total price:", scanner
+                            )))
+                            .setShippingAddress(this.messageWithScanner(
+                                    "Insert new shipping address:", scanner
+                            ))
+                            .setDiscount(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new discount:", scanner
+                            )));
                     orderService.insertOrder(orderBuilder.getOrder());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_ORDERPRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
                     OrderProductBuilder orderProductBuilder = new OrderProductBuilder(new OrderProduct());
-                    System.out.println("Insert new values (order id, product id, quantity, product price):");
                     orderProductBuilder
-                            .setOrderId(Integer.parseInt(scanner.nextLine()))
-                            .setProductId(Integer.parseInt(scanner.nextLine()))
-                            .setQuantity(Integer.parseInt(scanner.nextLine()))
-                            .setProductPrice(Double.parseDouble(scanner.nextLine()));
+                            .setOrderId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new order id:", scanner
+                            )))
+                            .setProductId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new product id:", scanner
+                            )))
+                            .setQuantity(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new quantity:", scanner
+                            )))
+                            .setProductPrice(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new productprice:", scanner
+                            )));
                     orderProductService.insertOrderProduct(orderProductBuilder.getOrderProduct());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_CART -> {
                     CartService cartService = new CartService(databaseService);
                     CartBuilder cartBuilder = new CartBuilder(new Cart());
-                    System.out.println("Insert new values (user id, order date, total price, discount):");
                     cartBuilder
-                            .setUserId(Integer.parseInt(scanner.nextLine()))
-                            .setOrderDate(Date.valueOf(scanner.nextLine()))
-                            .setTotalPrice(Double.parseDouble(scanner.nextLine()))
-                            .setDiscount(Double.parseDouble(scanner.nextLine()));
+                            .setUserId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new user id:", scanner
+                            )))
+                            .setOrderDate(Date.valueOf(this.messageWithScanner(
+                                    "Insert new order date:", scanner
+                            )))
+                            .setTotalPrice(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new total price:", scanner
+                            )))
+                            .setDiscount(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new discount:", scanner
+                            )));
                     cartService.insertCart(cartBuilder.getCart());
                     System.out.println("Row inserted.");
                 }
                 case Constants.TABLE_NAME_CARTPRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
                     CartProductBuilder cartProductBuilder = new CartProductBuilder(new CartProduct());
-                    System.out.println("Insert new values (cart id, product id, quantity, product price):");
                     cartProductBuilder
-                            .setCartId(Integer.parseInt(scanner.nextLine()))
-                            .setProductId(Integer.parseInt(scanner.nextLine()))
-                            .setQuantity(Integer.parseInt(scanner.nextLine()))
-                            .setProductPrice(Double.parseDouble(scanner.nextLine()));
+                            .setCartId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new cart id:", scanner
+                            )))
+                            .setProductId(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new product id:", scanner
+                            )))
+                            .setQuantity(Integer.parseInt(this.messageWithScanner(
+                                    "Insert new quantity:", scanner
+                            )))
+                            .setProductPrice(Double.parseDouble(this.messageWithScanner(
+                                    "Insert new product price:", scanner
+                            )));
                     cartProductService.insertCartProduct(cartProductBuilder.getCartProduct());
                     System.out.println("Row inserted.");
                 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HelpCommand extends Command {
 
-    private List<Command> commandList;
+    private final List<Command> commandList;
 
     public HelpCommand(List<Command> commandList) {
         super(Constants.COMMAND_NAME_HELP);
