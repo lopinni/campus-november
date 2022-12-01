@@ -25,9 +25,10 @@ public class DatabaseService {
     }
 
     public<T> T performSQL(String sql, ResultParser<T> resultParser) {
-        try (Connection connection = this.dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
+        try (
+                Connection connection = this.dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
             return resultParser.parse(statement.executeQuery());
         } catch (SQLException e) {
             throw new IllegalStateException(e);

@@ -1,9 +1,7 @@
 package pl.britenet.campusapiapp.service;
 
 import pl.britenet.campusapiapp.database.DatabaseService;
-import pl.britenet.campusapiapp.model.Category;
 import pl.britenet.campusapiapp.model.User;
-import pl.britenet.campusapiapp.model.builder.CategoryBuilder;
 import pl.britenet.campusapiapp.model.builder.UserBuilder;
 
 import java.sql.SQLException;

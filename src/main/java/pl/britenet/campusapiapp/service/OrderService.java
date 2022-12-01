@@ -2,9 +2,7 @@ package pl.britenet.campusapiapp.service;
 
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.model.Order;
-import pl.britenet.campusapiapp.model.User;
 import pl.britenet.campusapiapp.model.builder.OrderBuilder;
-import pl.britenet.campusapiapp.model.builder.UserBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

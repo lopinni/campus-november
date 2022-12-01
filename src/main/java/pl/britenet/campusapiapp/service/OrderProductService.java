@@ -1,8 +1,12 @@
 package pl.britenet.campusapiapp.service;
 
 import pl.britenet.campusapiapp.database.DatabaseService;
-import pl.britenet.campusapiapp.model.*;
-import pl.britenet.campusapiapp.model.builder.*;
+import pl.britenet.campusapiapp.model.Order;
+import pl.britenet.campusapiapp.model.OrderProduct;
+import pl.britenet.campusapiapp.model.Product;
+import pl.britenet.campusapiapp.model.builder.OrderBuilder;
+import pl.britenet.campusapiapp.model.builder.OrderProductBuilder;
+import pl.britenet.campusapiapp.model.builder.ProductBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -11,6 +11,7 @@ public class Constants {
     public static final String COMMAND_NAME_DELETE = "delete";
     public static final String COMMAND_NAME_CLEAR = "clear";
     public static final String COMMAND_NAME_GETPAGINATED = "getpaginated";
+    public static final String COMMAND_NAME_REPORT = "report";
 
     public static final String TABLE_NAME_CART = "cart";
     public static final String TABLE_NAME_CARTPRODUCT = "cartproduct";
@@ -20,4 +21,10 @@ public class Constants {
     public static final String TABLE_NAME_PRODUCT = "product";
     public static final String TABLE_NAME_PRODUCTCATEGORY = "productcategory";
     public static final String TABLE_NAME_USER = "user";
+
+    public static final String REPORT_NAME_INCOMEBYMONTH = "im";
+    public static final String REPORT_NAME_SALESBYMONTH = "sm";
+    public static final String REPORT_NAME_SALESBYYEARANDMONTH = "sym";
+    public static final String REPORT_NAME_TOPXCUSTOMERS = "txc";
+    public static final String REPORT_NAME_BOTTOMXCUSTOMERS = "bxc";
 }

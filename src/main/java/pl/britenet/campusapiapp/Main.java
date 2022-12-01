@@ -16,13 +16,14 @@ public class Main {
         commandService
                 .registerCommand(new HelpCommand(commandService.getCommandList()))
                 .registerCommand(new ExitCommand())
+                .registerCommand(new ClearCommand())
                 .registerCommand(new GetCommand(databaseService))
                 .registerCommand(new GetAllCommand(databaseService))
                 .registerCommand(new GetPaginatedCommand(databaseService))
                 .registerCommand(new InsertCommand(databaseService))
                 .registerCommand(new UpdateCommand(databaseService))
                 .registerCommand(new DeleteCommand(databaseService))
-                .registerCommand(new ClearCommand());
+                .registerCommand(new ReportCommand(databaseService));
 
         System.out.println("----- Program started. Awaiting input: -----");
         Scanner scanner = new Scanner(System.in);

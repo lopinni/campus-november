@@ -8,7 +8,7 @@ import pl.britenet.campusapiapp.service.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class GetPaginatedCommand extends Command{
+public class GetPaginatedCommand extends Command {
 
     private final DatabaseService databaseService;
 

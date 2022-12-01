@@ -12,5 +12,6 @@ public class ExitCommand extends Command {
     @Override
     public void execute() {
         Main.isRunning = false;
+        System.out.println("Exiting...");
     }
 }
