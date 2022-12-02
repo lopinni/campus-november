@@ -1,11 +1,11 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
 
 public class ClearCommand extends Command{
 
     public ClearCommand() {
-        super(Constants.COMMAND_NAME_CLEAR);
+        super(CommandName.CLEAR);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
 import pl.britenet.campusapiapp.Main;
+import pl.britenet.campusapiapp.constant.CommandName;
 
 public class ExitCommand extends Command {
 
     public ExitCommand() {
-        super(Constants.COMMAND_NAME_EXIT);
+        super(CommandName.EXIT);
     }
 
     @Override

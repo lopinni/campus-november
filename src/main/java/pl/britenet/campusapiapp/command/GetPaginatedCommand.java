@@ -1,6 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
+import pl.britenet.campusapiapp.constant.TableName;
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.model.*;
 import pl.britenet.campusapiapp.service.*;
@@ -13,7 +14,7 @@ public class GetPaginatedCommand extends Command {
     private final DatabaseService databaseService;
 
     public GetPaginatedCommand(DatabaseService databaseService) {
-        super(Constants.COMMAND_NAME_GETPAGINATED);
+        super(CommandName.GET_PAGINATED);
         this.databaseService = databaseService;
     }
 
@@ -25,7 +26,7 @@ public class GetPaginatedCommand extends Command {
             int rownum = Integer.parseInt(this.messageWithScanner("How many records per page?", scanner));
             if (rownum < 1) throw new NumberFormatException();
             switch (tableName) {
-                case Constants.TABLE_NAME_CATEGORY -> {
+                case TableName.CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
                     for (List<Category> categoryList : categoryService.getPaginated(rownum)) {
                         for (Category category : categoryList) {
@@ -37,7 +38,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_PRODUCT -> {
+                case TableName.PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
                     for (List<Product> productList : productService.getPaginated(rownum)) {
                         for (Product product : productList) {
@@ -49,7 +50,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
+                case TableName.PRODUCT_CATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     for (List<ProductCategory> productCategoryList : productCategoryService.getPaginated(rownum)) {
                         for (ProductCategory productCategory : productCategoryList) {
@@ -61,7 +62,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_USER -> {
+                case TableName.USER -> {
                     UserService userService = new UserService(databaseService);
                     for (List<User> userList : userService.getPaginated(rownum)) {
                         for (User user : userList) {
@@ -73,7 +74,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_ORDER -> {
+                case TableName.ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
                     for (List<Order> orderList : orderService.getPaginated(rownum)) {
                         for (Order order : orderList) {
@@ -85,7 +86,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_ORDERPRODUCT -> {
+                case TableName.ORDER_PRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
                     for (List<OrderProduct> orderProductList : orderProductService.getPaginated(rownum)) {
                         for (OrderProduct orderProduct : orderProductList) {
@@ -97,7 +98,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_CART -> {
+                case TableName.CART -> {
                     CartService cartService = new CartService(databaseService);
                     for (List<Cart> cartList : cartService.getPaginated(rownum)) {
                         for (Cart cart : cartList) {
@@ -109,7 +110,7 @@ public class GetPaginatedCommand extends Command {
                     }
                     System.out.println("Printed all records.");
                 }
-                case Constants.TABLE_NAME_CARTPRODUCT -> {
+                case TableName.CART_PRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
                     for (List<CartProduct> cartProductList : cartProductService.getPaginated(rownum)) {
                         for (CartProduct cartProduct : cartProductList) {

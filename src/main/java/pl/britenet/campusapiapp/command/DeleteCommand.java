@@ -1,6 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
+import pl.britenet.campusapiapp.constant.TableName;
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.service.*;
 
@@ -11,7 +12,7 @@ public class DeleteCommand extends Command{
     private final DatabaseService databaseService;
 
     public DeleteCommand(DatabaseService databaseService) {
-        super(Constants.COMMAND_NAME_DELETE);
+        super(CommandName.DELETE);
         this.databaseService = databaseService;
     }
 
@@ -21,21 +22,21 @@ public class DeleteCommand extends Command{
         String tableName = this.messageWithScanner("Table name:", scanner);
         try {
             switch (tableName) {
-                case Constants.TABLE_NAME_CATEGORY -> {
+                case TableName.CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
                     categoryService.deleteCategory(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_PRODUCT -> {
+                case TableName.PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
                     productService.deleteProduct(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
+                case TableName.PRODUCT_CATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     System.out.println("Select record IDs (product id, category id):");
                     productCategoryService.deleteProductCategory(
@@ -44,21 +45,21 @@ public class DeleteCommand extends Command{
                     );
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_USER -> {
+                case TableName.USER -> {
                     UserService userService = new UserService(databaseService);
                     userService.deleteUser(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_ORDER -> {
+                case TableName.ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
                     orderService.deleteOrder(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_ORDERPRODUCT -> {
+                case TableName.ORDER_PRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
                     orderProductService.deleteOrderProduct(
                             Integer.parseInt(this.messageWithScanner("Select order ID:", scanner)),
@@ -66,14 +67,14 @@ public class DeleteCommand extends Command{
                     );
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_CART -> {
+                case TableName.CART -> {
                     CartService cartService = new CartService(databaseService);
                     cartService.deleteCart(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.println("Row deleted.");
                 }
-                case Constants.TABLE_NAME_CARTPRODUCT -> {
+                case TableName.CART_PRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
                     cartProductService.deleteCartProduct(
                             Integer.parseInt(this.messageWithScanner("Select cart ID:", scanner)),

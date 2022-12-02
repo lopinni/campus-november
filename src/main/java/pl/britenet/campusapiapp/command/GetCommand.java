@@ -1,6 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
+import pl.britenet.campusapiapp.constant.TableName;
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.model.*;
 import pl.britenet.campusapiapp.service.*;
@@ -12,7 +13,7 @@ public class GetCommand extends Command {
     private final DatabaseService databaseService;
 
     public GetCommand(DatabaseService databaseService) {
-        super(Constants.COMMAND_NAME_GET);
+        super(CommandName.GET);
         this.databaseService = databaseService;
     }
 
@@ -22,21 +23,21 @@ public class GetCommand extends Command {
         String tableName = this.messageWithScanner("Table name:", scanner);
         try {
             switch (tableName) {
-                case Constants.TABLE_NAME_CATEGORY -> {
+                case TableName.CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
                     Category category = categoryService.getCategory(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.printf(category.toString());
                 }
-                case Constants.TABLE_NAME_PRODUCT -> {
+                case TableName.PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
                     Product product = productService.getProduct(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.printf(product.toString());
                 }
-                case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
+                case TableName.PRODUCT_CATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     ProductCategory productCategory = productCategoryService.getProductCategory(
                             Integer.parseInt(this.messageWithScanner("Select product ID:", scanner)),
@@ -44,21 +45,21 @@ public class GetCommand extends Command {
                     );
                     System.out.printf(productCategory.toString());
                 }
-                case Constants.TABLE_NAME_USER -> {
+                case TableName.USER -> {
                     UserService userService = new UserService(databaseService);
                     User user = userService.getUser(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.printf(user.toString());
                 }
-                case Constants.TABLE_NAME_ORDER -> {
+                case TableName.ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
                     Order order = orderService.getOrder(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.printf(order.toString());
                 }
-                case Constants.TABLE_NAME_ORDERPRODUCT -> {
+                case TableName.ORDER_PRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
                     OrderProduct orderProduct = orderProductService.getOrderProduct(
                             Integer.parseInt(this.messageWithScanner("Select order ID:", scanner)),
@@ -66,14 +67,14 @@ public class GetCommand extends Command {
                     );
                     System.out.printf(orderProduct.toString());
                 }
-                case Constants.TABLE_NAME_CART -> {
+                case TableName.CART -> {
                     CartService cartService = new CartService(databaseService);
                     Cart cart = cartService.getCart(Integer.parseInt(this.messageWithScanner(
                             "Select record ID:", scanner
                     )));
                     System.out.printf(cart.toString());
                 }
-                case Constants.TABLE_NAME_CARTPRODUCT -> {
+                case TableName.CART_PRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
                     CartProduct cartProduct = cartProductService.getCartProduct(
                             Integer.parseInt(this.messageWithScanner("Select cart ID:", scanner)),

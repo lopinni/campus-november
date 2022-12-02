@@ -29,7 +29,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (isRunning) {
-            System.out.print("> ");
+            System.out.print(">> ");
             String commandName = scanner.nextLine();
             Optional<Command> optionalCommand = commandService.findCommandByName(commandName);
             if (optionalCommand.isPresent()) {

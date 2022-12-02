@@ -1,6 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
+import pl.britenet.campusapiapp.constant.ReportName;
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.service.ReportService;
 
@@ -12,18 +13,18 @@ public class ReportCommand extends Command {
     private final DatabaseService databaseService;
 
     public ReportCommand(DatabaseService databaseService) {
-        super(Constants.COMMAND_NAME_REPORT);
+        super(CommandName.REPORT);
         this.databaseService = databaseService;
     }
 
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        String tableName = this.messageWithScanner("Report name:", scanner);
+        String reportName = this.messageWithScanner("Report name:", scanner);
         ReportService reportService = new ReportService(databaseService);
         try {
-            switch (tableName) {
-                case Constants.REPORT_NAME_INCOMEBYMONTH -> {
+            switch (reportName) {
+                case ReportName.INCOME_BY_MONTH -> {
                     System.out.println("Month\tIncome");
                     for (List<String> row : reportService.getIncomeByMonth()) {
                         for (String data : row) {
@@ -32,7 +33,7 @@ public class ReportCommand extends Command {
                         System.out.print("\n");
                     }
                 }
-                case Constants.REPORT_NAME_SALESBYMONTH -> {
+                case ReportName.SALES_BY_MONTH -> {
                     System.out.println("Month\tProduct_count");
                     for (List<String> row : reportService.getSalesByMonth()) {
                         for (String data : row) {
@@ -41,7 +42,7 @@ public class ReportCommand extends Command {
                         System.out.print("\n");
                     }
                 }
-                case Constants.REPORT_NAME_SALESBYYEARANDMONTH -> {
+                case ReportName.SALES_BY_YEAR_AND_MONTH -> {
                     System.out.println("Year\t\tMonth\tProduct_count");
                     for (List<String> row : reportService.getSalesByYearAndMonth()) {
                         for (String data : row) {
@@ -50,7 +51,7 @@ public class ReportCommand extends Command {
                         System.out.print("\n");
                     }
                 }
-                case Constants.REPORT_NAME_TOPXCUSTOMERS -> {
+                case ReportName.TOP_X_CUSTOMERS -> {
                     int x = Integer.parseInt(this.messageWithScanner("Select x:", scanner));
                     System.out.println("ID\tMoney_spent");
                     if (x < 1) throw new NumberFormatException();
@@ -61,7 +62,7 @@ public class ReportCommand extends Command {
                         System.out.print("\n");
                     }
                 }
-                case Constants.REPORT_NAME_BOTTOMXCUSTOMERS -> {
+                case ReportName.BOTTOM_X_CUSTOMERS -> {
                     int x = Integer.parseInt(this.messageWithScanner("Select x:", scanner));
                     System.out.println("ID\tMoney_spent");
                     if (x < 1) throw new NumberFormatException();

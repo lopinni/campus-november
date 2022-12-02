@@ -2,7 +2,6 @@ package pl.britenet.campusapiapp.service;
 
 import pl.britenet.campusapiapp.database.DatabaseService;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 

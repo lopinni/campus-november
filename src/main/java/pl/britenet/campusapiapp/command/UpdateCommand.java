@@ -1,6 +1,7 @@
 package pl.britenet.campusapiapp.command;
 
-import pl.britenet.campusapiapp.Constants;
+import pl.britenet.campusapiapp.constant.CommandName;
+import pl.britenet.campusapiapp.constant.TableName;
 import pl.britenet.campusapiapp.database.DatabaseService;
 import pl.britenet.campusapiapp.model.*;
 import pl.britenet.campusapiapp.model.builder.*;
@@ -14,7 +15,7 @@ public class UpdateCommand extends Command{
     private final DatabaseService databaseService;
 
     public UpdateCommand(DatabaseService databaseService) {
-        super(Constants.COMMAND_NAME_UPDATE);
+        super(CommandName.UPDATE);
         this.databaseService = databaseService;
     }
 
@@ -24,7 +25,7 @@ public class UpdateCommand extends Command{
         String tableName = this.messageWithScanner("Table name:", scanner);
         try {
             switch (tableName) {
-                case Constants.TABLE_NAME_CATEGORY -> {
+                case TableName.CATEGORY -> {
                     CategoryService categoryService = new CategoryService(databaseService);
                     CategoryBuilder categoryBuilder = new CategoryBuilder(new Category());
                     categoryBuilder
@@ -34,7 +35,7 @@ public class UpdateCommand extends Command{
                     categoryService.updateCategory(categoryBuilder.getCategory());
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_PRODUCT -> {
+                case TableName.PRODUCT -> {
                     ProductService productService = new ProductService(databaseService);
                     ProductBuilder productBuilder = new ProductBuilder(new Product());
                     productBuilder
@@ -46,7 +47,7 @@ public class UpdateCommand extends Command{
                     productService.updateProduct(productBuilder.getProduct());
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_PRODUCTCATEGORY -> {
+                case TableName.PRODUCT_CATEGORY -> {
                     ProductCategoryService productCategoryService = new ProductCategoryService(databaseService);
                     ProductCategoryBuilder productCategoryBuilder = new ProductCategoryBuilder(new ProductCategory());
                     productCategoryBuilder
@@ -63,7 +64,7 @@ public class UpdateCommand extends Command{
                     );
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_USER -> {
+                case TableName.USER -> {
                     UserService userService = new UserService(databaseService);
                     UserBuilder userBuilder = new UserBuilder(new User());
                     userBuilder
@@ -82,7 +83,7 @@ public class UpdateCommand extends Command{
                     userService.updateUser(userBuilder.getUser());
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_ORDER -> {
+                case TableName.ORDER -> {
                     OrderService orderService = new OrderService(databaseService);
                     OrderBuilder orderBuilder = new OrderBuilder(new Order());
                     orderBuilder
@@ -105,7 +106,7 @@ public class UpdateCommand extends Command{
                     orderService.updateOrder(orderBuilder.getOrder());
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_ORDERPRODUCT -> {
+                case TableName.ORDER_PRODUCT -> {
                     OrderProductService orderProductService = new OrderProductService(databaseService);
                     OrderProductBuilder orderProductBuilder = new OrderProductBuilder(new OrderProduct());
                     orderProductBuilder
@@ -128,7 +129,7 @@ public class UpdateCommand extends Command{
                     );
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_CART -> {
+                case TableName.CART -> {
                     CartService cartService = new CartService(databaseService);
                     CartBuilder cartBuilder = new CartBuilder(new Cart());
                     cartBuilder
@@ -148,7 +149,7 @@ public class UpdateCommand extends Command{
                     cartService.updateCart(cartBuilder.getCart());
                     System.out.println("Row updated.");
                 }
-                case Constants.TABLE_NAME_CARTPRODUCT -> {
+                case TableName.CART_PRODUCT -> {
                     CartProductService cartProductService = new CartProductService(databaseService);
                     CartProductBuilder cartProductBuilder = new CartProductBuilder(new CartProduct());
                     cartProductBuilder
