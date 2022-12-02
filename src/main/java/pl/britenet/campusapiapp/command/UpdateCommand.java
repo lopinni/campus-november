@@ -102,7 +102,10 @@ public class UpdateCommand extends Command{
                             ))
                             .setDiscount(Double.parseDouble(this.messageWithScanner(
                                     "Insert new discount:", scanner
-                            )));
+                            )))
+                            .setStatus(this.messageWithScanner(
+                                    "Insert new status:", scanner
+                            ));
                     orderService.updateOrder(orderBuilder.getOrder());
                     System.out.println("Row updated.");
                 }
@@ -177,7 +180,7 @@ public class UpdateCommand extends Command{
         } catch (IllegalArgumentException e) {
             System.out.println("Incorrect data type on last column.");
         } catch (IllegalStateException e) {
-            System.out.println("SQL error.");
+            System.out.println(e);
         }
     }
 }

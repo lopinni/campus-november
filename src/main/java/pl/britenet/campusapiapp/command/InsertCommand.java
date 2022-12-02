@@ -94,7 +94,10 @@ public class InsertCommand extends Command {
                             ))
                             .setDiscount(Double.parseDouble(this.messageWithScanner(
                                     "Insert new discount:", scanner
-                            )));
+                            )))
+                            .setStatus(this.messageWithScanner(
+                                    "Insert new status:", scanner
+                            ));
                     orderService.insertOrder(orderBuilder.getOrder());
                     System.out.println("Row inserted.");
                 }
@@ -160,7 +163,7 @@ public class InsertCommand extends Command {
         } catch (IllegalArgumentException e) {
             System.out.println("Incorrect data type on last column.");
         } catch (IllegalStateException e) {
-            System.out.println("SQL error.");
+            System.out.println(e);
         }
     }
 }

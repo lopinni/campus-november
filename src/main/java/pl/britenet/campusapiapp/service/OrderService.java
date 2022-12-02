@@ -31,6 +31,7 @@ public class OrderService {
                             .setTotalPrice(resultSet.getDouble("totalprice"))
                             .setShippingAddress(resultSet.getString("shippingaddress"))
                             .setDiscount(resultSet.getDouble("discount"))
+                            .setStatus(resultSet.getString("status"))
                             .getOrder();
 
                 }
@@ -55,6 +56,7 @@ public class OrderService {
                             .setTotalPrice(resultSet.getDouble("totalprice"))
                             .setShippingAddress(resultSet.getString("shippingaddress"))
                             .setDiscount(resultSet.getDouble("discount"))
+                            .setStatus(resultSet.getString("status"))
                             .getOrder());
                 }
                 return orderList;
@@ -82,6 +84,7 @@ public class OrderService {
                                     .setTotalPrice(resultSet.getDouble("totalprice"))
                                     .setShippingAddress(resultSet.getString("shippingaddress"))
                                     .setDiscount(resultSet.getDouble("discount"))
+                                    .setStatus(resultSet.getString("status"))
                                     .getOrder());
                         } else isRunning.set(false);
                     }
@@ -97,13 +100,14 @@ public class OrderService {
     public void insertOrder(Order order) {
         String dml = String.format(
                 Locale.US,
-                "INSERT INTO `order` (userid, orderdate, totalprice, shippingaddress, discount) " +
-                        "VALUES (%d, '%s', %f, '%s', %f)",
+                "INSERT INTO `order` (userid, orderdate, totalprice, shippingaddress, discount, status) " +
+                        "VALUES (%d, '%s', %f, '%s', %f, '%s')",
                 order.getUserId(),
                 order.getOrderDate().toString(),
                 order.getTotalPrice(),
                 order.getShippingAddress(),
-                order.getDiscount()
+                order.getDiscount(),
+                order.getStatus()
         );
         this.databaseService.performDML(dml);
     }
@@ -116,13 +120,15 @@ public class OrderService {
                         "orderdate = '%s', " +
                         "totalprice = %f, " +
                         "shippingaddress = '%s', " +
-                        "discount = %f " +
+                        "discount = %f, " +
+                        "status = '%s' " +
                         "WHERE id = %d",
                 order.getUserId(),
                 order.getOrderDate().toString(),
                 order.getTotalPrice(),
                 order.getShippingAddress(),
                 order.getDiscount(),
+                order.getStatus(),
                 order.getId()
         );
         this.databaseService.performDML(dml);

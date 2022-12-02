@@ -10,6 +10,7 @@ public final class Order {
     private double totalPrice;
     private String shippingAddress;
     private double discount;
+    private String status;
 
     public int getId() {
         return id;
@@ -59,6 +60,14 @@ public final class Order {
         this.discount = discount;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Order {" +
@@ -68,6 +77,7 @@ public final class Order {
                 ", totalPrice=" + totalPrice +
                 ", shippingAddress='" + shippingAddress + '\'' +
                 ", discount=" + discount +
+                ", status=" + status +
                 " }\n";
     }
 }

@@ -42,6 +42,11 @@ public class OrderBuilder {
         return this;
     }
 
+    public OrderBuilder setStatus(String status) {
+        this.order.setStatus(status);
+        return this;
+    }
+
     public Order getOrder() {
         return order;
     }
