@@ -5,6 +5,7 @@ import pl.britenet.campusapiapp.model.Cart;
 import pl.britenet.campusapiapp.model.builder.CartBuilder;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -90,26 +91,31 @@ public class CartService {
     }
 
     public void insertCart(Cart cart) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String dml = String.format(
                 Locale.US,
                 "INSERT INTO cart (userid, orderdate, totalprice, discount) " +
                         "VALUES (%d, '%s', %f, %f)",
                 cart.getUserId(),
-                cart.getOrderDate(),
+                formatter.format(cart.getOrderDate()),
                 cart.getTotalPrice(),
                 cart.getDiscount()
         );
+        System.out.println(dml);
         this.databaseService.performDML(dml);
     }
 
     public void updateCart(Cart cart) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String dml = String.format(
                 Locale.US,
                 "UPDATE cart " +
                         "SET userid = %d, orderdate = '%s', totalprice = %f, discount = %f" +
                         "WHERE id = %d",
                 cart.getUserId(),
-                cart.getOrderDate(),
+                formatter.format(cart.getOrderDate()),
                 cart.getTotalPrice(),
                 cart.getDiscount(),
                 cart.getId()

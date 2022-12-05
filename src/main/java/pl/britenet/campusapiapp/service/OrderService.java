@@ -5,6 +5,7 @@ import pl.britenet.campusapiapp.model.Order;
 import pl.britenet.campusapiapp.model.builder.OrderBuilder;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -98,12 +99,14 @@ public class OrderService {
     }
 
     public void insertOrder(Order order) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String dml = String.format(
                 Locale.US,
                 "INSERT INTO `order` (userid, orderdate, totalprice, shippingaddress, discount, status) " +
                         "VALUES (%d, '%s', %f, '%s', %f, '%s')",
                 order.getUserId(),
-                order.getOrderDate().toString(),
+                formatter.format(order.getOrderDate()),
                 order.getTotalPrice(),
                 order.getShippingAddress(),
                 order.getDiscount(),
@@ -113,6 +116,8 @@ public class OrderService {
     }
 
     public void updateOrder(Order order) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String dml = String.format(
                 Locale.US,
                 "UPDATE `order` SET " +
@@ -124,7 +129,7 @@ public class OrderService {
                         "status = '%s' " +
                         "WHERE id = %d",
                 order.getUserId(),
-                order.getOrderDate().toString(),
+                formatter.format(order.getOrderDate()),
                 order.getTotalPrice(),
                 order.getShippingAddress(),
                 order.getDiscount(),
