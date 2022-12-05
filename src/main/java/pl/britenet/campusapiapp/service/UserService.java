@@ -157,4 +157,34 @@ public class UserService {
         this.databaseService.performDML(dml);
     }
 
+    public User findUser(String username, String password) {
+        String sql = String.format(
+                "SELECT * FROM user WHERE login = '%s' AND password = '%s'",
+                username, password
+        );
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                if (resultSet.next()) {
+                    return new UserBuilder(new User())
+                            .setId(resultSet.getInt("id"))
+                            .setLogin(resultSet.getString("login"))
+                            .setPassword(resultSet.getString("password"))
+                            .setName(resultSet.getString("name"))
+                            .setSurname(resultSet.getString("surname"))
+                            .setCity(resultSet.getString("city"))
+                            .setStreet(resultSet.getString("street"))
+                            .setCountry(resultSet.getString("country"))
+                            .setZipCode(resultSet.getString("zipcode"))
+                            .setProfilePicturePath(resultSet.getString("profilepicturepath"))
+                            .getUser();
+
+                }
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+            return null;
+        });
+    }
+
 }
