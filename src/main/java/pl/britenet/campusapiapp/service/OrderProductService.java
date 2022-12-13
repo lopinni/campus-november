@@ -106,7 +106,7 @@ public class OrderProductService {
         String sql = String.format(
                 "SELECT * FROM orderproduct op " +
                         "JOIN `order` o ON op.orderid = o.id " +
-                        "JOIN product p ON op.productid = p.id" +
+                        "JOIN product p ON op.productid = p.id " +
                         "WHERE userid = %d;",
                 userId
         );

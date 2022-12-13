@@ -99,7 +99,7 @@ public class CartProductService {
         String sql = String.format(
                 "SELECT * FROM cartproduct cp " +
                         "JOIN cart c ON cp.cartid = c.id " +
-                        "JOIN product p ON cp.productid = p.id" +
+                        "JOIN product p ON cp.productid = p.id " +
                         "WHERE userid = %d",
                 userId
         );
