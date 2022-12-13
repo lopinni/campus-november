@@ -95,6 +95,47 @@ public class CartProductService {
         });
     }
 
+    public List<CartProduct> getByUserId(int userId) {
+        String sql = String.format(
+                "SELECT * FROM cartproduct cp " +
+                        "JOIN cart c ON cp.cartid = c.id " +
+                        "JOIN product p ON cp.productid = p.id" +
+                        "WHERE userid = %d",
+                userId
+        );
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                ArrayList<CartProduct> cartProductList = new ArrayList<>();
+                while (resultSet.next()) {
+                    cartProductList.add(new CartProductBuilder(new CartProduct())
+                            .setCartId(resultSet.getInt("cartid"))
+                            .setProductId(resultSet.getInt("productid"))
+                            .setQuantity(resultSet.getInt("quantity"))
+                            .setProductPrice(resultSet.getDouble("productprice"))
+                            .setCart(new CartBuilder(new Cart())
+                                    .setId(resultSet.getInt("cartid"))
+                                    .setUserId(resultSet.getInt("userid"))
+                                    .setOrderDate(resultSet.getDate("orderdate"))
+                                    .setTotalPrice(resultSet.getDouble("totalprice"))
+                                    .setDiscount(resultSet.getDouble("discount"))
+                                    .getCart())
+                            .setProduct(new ProductBuilder(new Product())
+                                    .setId(resultSet.getInt("productid"))
+                                    .setName(resultSet.getString("name"))
+                                    .setPrice(resultSet.getDouble("price"))
+                                    .setDescription(resultSet.getString("description"))
+                                    .setImagePath(resultSet.getString("imagepath"))
+                                    .getProduct())
+                            .getCartProduct());
+                }
+                return cartProductList;
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
+
     public List<List<CartProduct>> getPaginated(int rownum) {
         String sql =
                 "SELECT * FROM cartproduct op " +

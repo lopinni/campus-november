@@ -98,30 +98,6 @@ public class OrderService {
         });
     }
 
-    public List<Order> getByUserId(int userId) {
-        String sql = String.format("SELECT * FROM `order` WHERE userid = %d", userId);
-
-        return this.databaseService.performSQL(sql, resultSet -> {
-            try {
-                ArrayList<Order> orderList = new ArrayList<>();
-                while (resultSet.next()) {
-                    orderList.add(new OrderBuilder(new Order())
-                            .setId(resultSet.getInt("id"))
-                            .setUserId(resultSet.getInt("userid"))
-                            .setOrderDate(resultSet.getDate("orderdate"))
-                            .setTotalPrice(resultSet.getDouble("totalprice"))
-                            .setShippingAddress(resultSet.getString("shippingaddress"))
-                            .setDiscount(resultSet.getDouble("discount"))
-                            .setStatus(resultSet.getString("status"))
-                            .getOrder());
-                }
-                return orderList;
-            } catch (SQLException e) {
-                throw new IllegalStateException(e);
-            }
-        });
-    }
-
     public void insertOrder(Order order) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 

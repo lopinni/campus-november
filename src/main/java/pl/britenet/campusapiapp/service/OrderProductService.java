@@ -102,6 +102,49 @@ public class OrderProductService {
         });
     }
 
+    public List<OrderProduct> getByUserId(int userId) {
+        String sql = String.format(
+                "SELECT * FROM orderproduct op " +
+                        "JOIN `order` o ON op.orderid = o.id " +
+                        "JOIN product p ON op.productid = p.id" +
+                        "WHERE userid = %d;",
+                userId
+        );
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                ArrayList<OrderProduct> orderProductList = new ArrayList<>();
+                while (resultSet.next()) {
+                    orderProductList.add(new OrderProductBuilder(new OrderProduct())
+                            .setOrderId(resultSet.getInt("orderid"))
+                            .setProductId(resultSet.getInt("productid"))
+                            .setQuantity(resultSet.getInt("quantity"))
+                            .setProductPrice(resultSet.getDouble("productprice"))
+                            .setOrder(new OrderBuilder(new Order())
+                                    .setId(resultSet.getInt("orderid"))
+                                    .setUserId(resultSet.getInt("userid"))
+                                    .setOrderDate(resultSet.getDate("orderdate"))
+                                    .setTotalPrice(resultSet.getDouble("totalprice"))
+                                    .setShippingAddress(resultSet.getString("shippingaddress"))
+                                    .setDiscount(resultSet.getDouble("discount"))
+                                    .setStatus(resultSet.getString("status"))
+                                    .getOrder())
+                            .setProduct(new ProductBuilder(new Product())
+                                    .setId(resultSet.getInt("productid"))
+                                    .setName(resultSet.getString("name"))
+                                    .setPrice(resultSet.getDouble("price"))
+                                    .setDescription(resultSet.getString("description"))
+                                    .setImagePath(resultSet.getString("imagepath"))
+                                    .getProduct())
+                            .getOrderProduct());
+                }
+                return orderProductList;
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
+
     public List<List<OrderProduct>> getPaginated(int rownum) {
         String sql =
                 "SELECT * FROM orderproduct op " +

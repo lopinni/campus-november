@@ -61,28 +61,6 @@ public class CartService {
         });
     }
 
-    public List<Cart> getByUserId(int userId) {
-        String sql = String.format("SELECT * FROM cart WHERE userid = %d", userId);
-
-        return this.databaseService.performSQL(sql, resultSet -> {
-            try {
-                ArrayList<Cart> cartList = new ArrayList<>();
-                while (resultSet.next()) {
-                    cartList.add(new CartBuilder(new Cart())
-                            .setId(resultSet.getInt("id"))
-                            .setUserId(resultSet.getInt("userid"))
-                            .setOrderDate(resultSet.getDate("orderdate"))
-                            .setTotalPrice(resultSet.getDouble("totalprice"))
-                            .setDiscount(resultSet.getDouble("discount"))
-                            .getCart());
-                }
-                return cartList;
-            } catch (SQLException e) {
-                throw new IllegalStateException(e);
-            }
-        });
-    }
-
     public List<List<Cart>> getPaginated(int rownum) {
         String sql = "SELECT * FROM cart";
         AtomicBoolean isRunning = new AtomicBoolean(true);
