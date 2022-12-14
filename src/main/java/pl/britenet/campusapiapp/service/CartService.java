@@ -39,6 +39,27 @@ public class CartService {
         });
     }
 
+    public Cart getNewestCartItem() {
+        String sql = "SELECT * FROM cart ORDER BY id DESC LIMIT 1";
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                if (resultSet.next()) {
+                    return new CartBuilder(new Cart())
+                            .setId(resultSet.getInt("id"))
+                            .setUserId(resultSet.getInt("userid"))
+                            .setOrderDate(resultSet.getDate("orderdate"))
+                            .setTotalPrice(resultSet.getDouble("totalprice"))
+                            .setDiscount(resultSet.getDouble("discount"))
+                            .getCart();
+                }
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+            return null;
+        });
+    }
+
     public List<Cart> getAll() {
         String sql = "SELECT * FROM cart";
 
