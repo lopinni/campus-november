@@ -90,7 +90,7 @@ public class ProductService {
     }
 
     public List<Product> getByName(String name) {
-        String sql = String.format("SELECT * FROM product p WHERE LOWER(p.name) LIKE LOWER('%s')", name);
+        String sql = "SELECT * FROM product p WHERE LOWER(p.name) LIKE LOWER('%" + name + "%')";
 
         return this.databaseService.performSQL(sql, resultSet -> {
             try {
