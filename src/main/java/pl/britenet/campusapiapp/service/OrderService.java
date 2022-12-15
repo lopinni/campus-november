@@ -1,7 +1,9 @@
 package pl.britenet.campusapiapp.service;
 
 import pl.britenet.campusapiapp.database.DatabaseService;
+import pl.britenet.campusapiapp.model.Cart;
 import pl.britenet.campusapiapp.model.Order;
+import pl.britenet.campusapiapp.model.builder.CartBuilder;
 import pl.britenet.campusapiapp.model.builder.OrderBuilder;
 
 import java.sql.SQLException;
@@ -35,6 +37,29 @@ public class OrderService {
                             .setStatus(resultSet.getString("status"))
                             .getOrder();
 
+                }
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+            return null;
+        });
+    }
+
+    public Order getNewestOrderItem() {
+        String sql = "SELECT * FROM `order` ORDER BY id DESC LIMIT 1";
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                if (resultSet.next()) {
+                    return new OrderBuilder(new Order())
+                            .setId(resultSet.getInt("id"))
+                            .setUserId(resultSet.getInt("userid"))
+                            .setOrderDate(resultSet.getDate("orderdate"))
+                            .setTotalPrice(resultSet.getDouble("totalprice"))
+                            .setShippingAddress(resultSet.getString("shippingaddress"))
+                            .setDiscount(resultSet.getDouble("discount"))
+                            .setStatus(resultSet.getString("status"))
+                            .getOrder();
                 }
             } catch (SQLException e) {
                 throw new IllegalStateException(e);
