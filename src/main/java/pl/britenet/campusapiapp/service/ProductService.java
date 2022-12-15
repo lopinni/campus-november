@@ -89,6 +89,28 @@ public class ProductService {
         });
     }
 
+    public List<Product> getByName(String name) {
+        String sql = String.format("SELECT * FROM product p WHERE LOWER(p.name) LIKE LOWER('%s')", name);
+
+        return this.databaseService.performSQL(sql, resultSet -> {
+            try {
+                ArrayList<Product> productList = new ArrayList<>();
+                while (resultSet.next()) {
+                    productList.add(new ProductBuilder(new Product())
+                            .setId(resultSet.getInt("id"))
+                            .setName(resultSet.getString("name"))
+                            .setDescription(resultSet.getString("description"))
+                            .setImagePath(resultSet.getString("imagepath"))
+                            .setPrice(resultSet.getDouble("price"))
+                            .getProduct());
+                }
+                return productList;
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
+
     public List<List<Product>> getPaginated(int rownum) {
         String sql = "SELECT * FROM product";
         AtomicBoolean isRunning = new AtomicBoolean(true);
