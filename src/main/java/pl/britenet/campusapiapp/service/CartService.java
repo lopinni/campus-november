@@ -148,4 +148,9 @@ public class CartService {
         String dml = String.format("DELETE FROM cart WHERE id = %d", id);
         this.databaseService.performDML(dml);
     }
+
+    public void deleteCartByUserId(int userId) {
+        String dml = String.format("DELETE FROM cart WHERE userid = %d", userId);
+        this.databaseService.performDML(dml);
+    }
 }
